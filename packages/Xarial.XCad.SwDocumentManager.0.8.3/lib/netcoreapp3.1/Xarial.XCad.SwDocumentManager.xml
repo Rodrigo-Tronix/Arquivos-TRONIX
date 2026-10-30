@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Xarial.XCad.SwDocumentManager</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "T:Xarial.XCad.SwDocumentManager.Documents.SwDmDocument.ChangedReferencesCollection" -->
+        <member name="T:Xarial.XCad.SwDocumentManager.Exceptions.ConfigurationCutListIsNotSupported">
+            <summary>
+            Exception indicates that cut-lists cannot be exctrated for this version of the SOLIDWORKS file
+            </summary>
+        </member>
+        <member name="T:Xarial.XCad.SwDocumentManager.Services.IFilePathResolver">
+            <summary>
+            Service which provides custom path resolvers
+            </summary>
+        </member>
+        <member name="M:Xarial.XCad.SwDocumentManager.Services.IFilePathResolver.ResolvePath(System.String,System.String)">
+            <summary>
+            Resolves the path of the document
+            </summary>
+            <param name="parentDocPath">Parent document full path</param>
+            <param name="path">Cached document path</param>
+            <returns>Resolved path</returns>
+        </member>
+        <member name="T:Xarial.XCad.SwDocumentManager.Services.SwDmFilePathResolver">
+            <summary>
+            Resolves the reference path for the document
+            </summary>
+            <remarks>This logic implemented according to <see href="https://help.solidworks.com/2016/english/SolidWorks/sldworks/c_Search_Routine_for_Referenced_Documents.htm"/></remarks>
+        </member>
+        <member name="T:Xarial.XCad.SwDocumentManager.SwDmApplicationFactory">
+            <summary>
+            Provides a factory to create instance of the <see cref="T:Xarial.XCad.SwDocumentManager.ISwDmApplication"/>
+            </summary>
+        </member>
+        <member name="M:Xarial.XCad.SwDocumentManager.SwDmApplicationFactory.PreCreate">
+            <summary>
+            Pre-creates application
+            </summary>
+            <returns>xCAD application</returns>
+        </member>
+        <member name="M:Xarial.XCad.SwDocumentManager.SwDmApplicationFactory.GetInstalledVersions">
+            <summary>
+            Returns all installed SOLIDWORKS Document Manager versions
+            </summary>
+            <returns>Enumerates versions</returns>
+            <remarks>Latest supported file version of the application also depends on the version of the Document Manager license key</remarks>
+        </member>
+        <member name="M:Xarial.XCad.SwDocumentManager.SwDmApplicationFactory.Create(System.String)">
+            <summary>
+            Creates an instance of the application from the Document Manager key
+            </summary>
+            <param name="dmKey">Document manager key</param>
+            <returns>xCAD application</returns>
+        </member>
+        <member name="M:Xarial.XCad.SwDocumentManager.SwDmApplicationFactory.FromPointer(SolidWorks.Interop.swdocumentmgr.ISwDMApplication)">
+            <summary>
+            Creates instance of the application from the COM pointer
+            </summary>
+            <param name="app">Pointer to the application</param>
+            <returns>xCAD application</returns>
+        </member>
+        <member name="M:Xarial.XCad.SwDocumentManager.SwDmApplicationFactory.CreateVersion(Xarial.XCad.SwDocumentManager.SwDmVersion_e)">
+            <summary>
+            Creates a version of the application
+            </summary>
+            <param name="major">Major version</param>
+            <returns>Version</returns>
+        </member>
+    </members>
+</doc>

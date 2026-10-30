@@ -1,0 +1,3 @@
+<Solution>
+  <Project Path="TRONIX.csproj" Id="3c815db5-8fa9-42a9-a206-329f4068d05f" />
+</Solution>

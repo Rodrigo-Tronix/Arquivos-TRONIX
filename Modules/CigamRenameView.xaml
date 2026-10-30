@@ -1,0 +1,52 @@
+﻿<Window x:Class="TRONIX.Modules.Views.CigamRenameView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TRONIX - Renomear &amp; Atualizar CIGAM" Height="520" Width="900"
+        WindowStartupLocation="CenterOwner" Background="#F9F9F9">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabeçalho e Campo de Pesquisa Superior -->
+        <Grid Grid.Row="0" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="🔄 Renomeação em Lote &amp; Propriedades CIGAM" FontSize="18" FontWeight="Bold" Foreground="#003366"/>
+                <TextBlock Text="Insira os novos códigos retornados pelo CIGAM para atualizar o projeto e os vínculos de arquivos." FontSize="11" Foreground="Gray" Margin="0,2,0,0"/>
+            </StackPanel>
+
+            <!-- Campo de Pesquisa no Canto Superior Direito -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="🔍 Pesquisar:" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#333333" Margin="0,0,8,0"/>
+                <TextBox Text="{Binding TextoFiltro, UpdateSourceTrigger=PropertyChanged}" Width="220" Height="26" VerticalContentAlignment="Center" Padding="5,0"/>
+            </StackPanel>
+        </Grid>
+
+        <Separator Grid.Row="1" Margin="0,5,0,10" Background="#E0E0E0"/>
+
+        <!-- Tabela de Itens (DataGrid com Coluna Descrição Removida) -->
+        <DataGrid Grid.Row="2" ItemsSource="{Binding ItensFiltrados}" AutoGenerateColumns="False" CanUserAddRows="False" Background="White" RowHeaderWidth="0" GridLinesVisibility="Horizontal">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header=" " Binding="{Binding Processar, UpdateSourceTrigger=PropertyChanged}" Width="30"/>
+                <DataGridTextColumn Header="Tipo" Binding="{Binding TipoDoc}" IsReadOnly="True" Width="80"/>
+                <DataGridTextColumn Header="Nome Atual (Temporário)" Binding="{Binding NomeAtualExibicao}" IsReadOnly="True" Width="380"/>
+                <DataGridTextColumn Header="Novo Nome (CIGAM)" Binding="{Binding NovoNome, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" IsReadOnly="True" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Rodapé com Botões de Ação -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button Content="🔍 Ler Montagem Ativa" Command="{Binding LerEstruturaCommand}" Width="150" Height="32" Margin="0,0,10,0" Background="#2980B9" Foreground="White" FontWeight="Bold"/>
+            <Button Content="⚡ Executar Renomeação" Command="{Binding ExecutarRenomeacaoCommand}" Width="180" Height="32" Background="#27AE60" Foreground="White" FontWeight="Bold"/>
+        </StackPanel>
+    </Grid>
+</Window>

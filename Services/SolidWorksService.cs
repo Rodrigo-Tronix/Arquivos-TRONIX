@@ -1,0 +1,24 @@
+﻿// ============================================
+// PROPERTYEDITORADDIN.CS - VERSÃO CORRIGIDA 0.8.3
+// ============================================
+
+using System;
+using Xarial.XCad.SolidWorks;
+
+namespace TRONIX.Services
+{
+    internal class SolidWorksService
+    {
+        private ISwApplication application;
+
+        public SolidWorksService(ISwApplication application)
+        {
+            this.application = application;
+        }
+
+        internal void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

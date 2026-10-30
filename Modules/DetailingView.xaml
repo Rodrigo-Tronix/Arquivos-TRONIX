@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="TRONIX.Modules.DetailingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Margin="8">
+    <UserControl.Resources>
+        <Style x:Key="ExpanderHeaderStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#4A5568"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Margin" Value="0,2"/>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock Text="📐 Automação de Detalhamento 2D" FontSize="15" FontWeight="Bold" Foreground="#003366" Margin="0,0,0,10"/>
+
+            <!-- BLOCO 1: SELEÇÃO DE PRESET & REGRAS DE VISTAS -->
+            <Border Background="#F8F9FA" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="5" Padding="5" Margin="0,0,0,10">
+                <Expander IsExpanded="True" Padding="5">
+                    <Expander.Header>
+                        <TextBlock Text="CONFIGURAÇÃO DO DESENHO" Style="{StaticResource ExpanderHeaderStyle}"/>
+                    </Expander.Header>
+                    <StackPanel Margin="0,8,0,0">
+                        <TextBlock Text="Setup / Preset Predefinido:" FontSize="10" Foreground="Gray"/>
+                        <ComboBox ItemsSource="{Binding PresetsDisponiveis}" SelectedItem="{Binding PresetSelecionado}" DisplayMemberPath="NomePreset" Height="26" Margin="0,2,0,8"/>
+                        <CheckBox Content="Cotagem Automática Limpa" IsChecked="{Binding CotagemAutomatica}" Margin="0,3" FontWeight="SemiBold"/>
+                        <CheckBox Content="Inserir Tabela (BOM / Dobra)" IsChecked="{Binding InserirTabela}" Margin="0,3" FontWeight="SemiBold"/>
+                        <CheckBox Content="Auto-Organizar Cotas" IsChecked="{Binding AutoOrganizarCotas}" Margin="0,3" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Expander>
+            </Border>
+
+
+            <!-- BLOCO 2: PROPRIEDADES DO MODELO -->
+            <Border Background="#F8F9FA" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="5" Padding="5" Margin="0,0,0,10">
+                <Expander IsExpanded="True" Padding="5">
+                    <Expander.Header>
+                        <TextBlock Text="PROPRIEDADES DO MODELO (3D/2D)" Style="{StaticResource ExpanderHeaderStyle}"/>
+                    </Expander.Header>
+                    <StackPanel Margin="0,8,0,0">
+                        <ScrollViewer MaxHeight="320" VerticalScrollBarVisibility="Auto" Margin="0,0,0,8">
+                            <!-- Conectado o evento PreviewKeyDown para as setas ▲ e ▼ -->
+                            <ItemsControl ItemsSource="{Binding ListaPropriedades}" 
+                                          KeyboardNavigation.TabNavigation="Continue" 
+                                          PreviewKeyDown="ItemsControl_PreviewKeyDown">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,3,4,4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock x:Name="TxtTitle" Grid.Column="0" Text="{Binding Nome}" FontSize="10" Foreground="#2D3748" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+
+                                            <TextBox x:Name="TxtValue" Grid.Column="1" Text="{Binding Valor, UpdateSourceTrigger=PropertyChanged}" Height="22" FontSize="11" VerticalContentAlignment="Center" Visibility="Visible" IsTabStop="True"/>
+
+                                            <!-- LINHA CORRIGIDA DO COMBOBOX -->
+                                            <ComboBox x:Name="CboValue" Grid.Column="1" ItemsSource="{Binding Opcoes}" Text="{Binding Valor, UpdateSourceTrigger=PropertyChanged}" IsEditable="{Binding IsEditable}" Height="22" FontSize="11" VerticalContentAlignment="Center" Visibility="Collapsed" IsTabStop="True" PreviewKeyDown="ComboBox_PreviewKeyDown"/>
+
+                                            <CheckBox x:Name="ChkValue" Grid.Column="1" IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" Content="Marcar (X)" FontSize="11" VerticalAlignment="Center" Margin="2,0,0,0" Visibility="Collapsed" IsTabStop="True"/>
+                                            <DatePicker x:Name="DatValue" Grid.Column="1" SelectedDate="{Binding ValorData, UpdateSourceTrigger=PropertyChanged}" Height="24" FontSize="11" VerticalContentAlignment="Center" Visibility="Collapsed" IsTabStop="True"/>
+                                            <Button x:Name="BtnValue" Grid.ColumnSpan="2" Content="{Binding Nome}" Command="{Binding BotaoCommand}" Height="26" Background="#4A5568" Foreground="White" FontWeight="Bold" Margin="0,5" Visibility="Collapsed" IsTabStop="True"/>
+                                        </Grid>
+
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding IsLista}" Value="True">
+                                                <Setter TargetName="TxtValue" Property="Visibility" Value="Collapsed"/>
+                                                <Setter TargetName="CboValue" Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsCheck}" Value="True">
+                                                <Setter TargetName="TxtValue" Property="Visibility" Value="Collapsed"/>
+                                                <Setter TargetName="ChkValue" Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsData}" Value="True">
+                                                <Setter TargetName="TxtValue" Property="Visibility" Value="Collapsed"/>
+                                                <Setter TargetName="DatValue" Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsBotao}" Value="True">
+                                                <Setter TargetName="TxtTitle" Property="Visibility" Value="Collapsed"/>
+                                                <Setter TargetName="TxtValue" Property="Visibility" Value="Collapsed"/>
+                                                <Setter TargetName="BtnValue" Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                        <Button Content="🔄 Sincronizar e Salvar no 3D" Command="{Binding SincronizarPropriedadesCommand}" Height="26" Background="#ED8936" Foreground="White" FontWeight="Bold"/>
+                    </StackPanel>
+                </Expander>
+            </Border>
+
+            <!-- BLOCO 3: DESTINO E AÇÕES -->
+            <Border Background="#F8F9FA" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="5" Padding="5" Margin="0,0,0,10">
+                <Expander IsExpanded="True" Padding="5">
+                    <Expander.Header>
+                        <TextBlock Text="EXPORTAÇÃO E PASTA DE DESTINO" Style="{StaticResource ExpanderHeaderStyle}"/>
+                    </Expander.Header>
+                    <StackPanel Margin="0,8,0,0">
+                        <TextBlock Text="Pasta Destino PDF/DXF:" FontSize="10" Foreground="Gray"/>
+                        <Grid Margin="0,2,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding PastaDestinoExportacao}" Height="24" IsReadOnly="True"/>
+                            <Button Grid.Column="1" Content="📁" Command="{Binding SelecionarPastaCommand}" Width="28" Height="24" Margin="4,0,0,0"/>
+                        </Grid>
+                        <Button Content="🚀 Gerar Desenho 2D (.slddrw)" Command="{Binding GerarDesenho2DCommand}" Height="32" Margin="0,0,0,6" Background="#27AE60" Foreground="White" FontWeight="Bold" FontSize="12"/>
+                        <Button Content="💾 Exportar PDF / DXF" Command="{Binding ExportarArquivosCommand}" Height="30" Background="#2980B9" Foreground="White" FontWeight="Bold"/>
+                    </StackPanel>
+                </Expander>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="TRONIX.Modules.TimeTrackerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Margin="5">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock Text="⏱️ Controle de Tempo do Projeto" FontSize="15" FontWeight="Bold" Foreground="#003366" Margin="0,0,0,8"/>
+
+            <!-- Identificação do Projeto Pai (CIGAM) e Arquivo Ativo -->
+            <Border Background="#F4F4F4" CornerRadius="5" Padding="8" Margin="0,0,0,8">
+                <StackPanel>
+                    <TextBlock Text="Código do Projeto / CIGAM:" FontSize="10" Foreground="Gray" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding CodigoProjetoPai, UpdateSourceTrigger=PropertyChanged}" 
+                             FontWeight="Bold" FontSize="12" Margin="0,2,0,5" Padding="3"/>
+
+                    <TextBlock Text="Item Ativo:" FontSize="10" Foreground="Gray" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding NomeProjetoAtivo}" FontWeight="Bold" FontSize="12" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Display de Tempo (Item vs Total do Projeto) -->
+            <Grid Margin="0,2,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                    <TextBlock Text="Tempo do Item" FontSize="10" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding TempoFormatado}" FontSize="20" FontWeight="Bold" Foreground="#2C3E50"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                    <TextBlock Text="Total do Projeto" FontSize="10" Foreground="Gray" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding TempoTotalProjetoFormatado}" FontSize="20" FontWeight="Bold" Foreground="#27AE60"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Seleção da Etapa -->
+            <TextBlock Text="Etapa Atual:" Margin="0,3,0,2" FontWeight="SemiBold" FontSize="11"/>
+            <ComboBox ItemsSource="{Binding EtapasDisponiveis}" SelectedItem="{Binding EtapaSelecionada}" Margin="0,0,0,8" Height="25"/>
+
+            <!-- Botões de Ação Totalmente Automatizados (2 Colunas) -->
+            <UniformGrid Columns="2" Margin="0,2,0,8">
+                <Button Content="🏁 Finalizar" 
+                        Command="{Binding FinalizarProjetoCommand}" 
+                        Height="28" Margin="1" 
+                        Background="#27AE60" Foreground="White" FontWeight="Bold" FontSize="10"/>
+
+                <Button Content="💾 Exportar" 
+                        Command="{Binding ExportarRelatorioCommand}" 
+                        Height="28" Margin="1" 
+                        Background="#2980B9" Foreground="White" FontWeight="Bold" FontSize="10"/>
+            </UniformGrid>
+
+            <!-- Campo de Justificativa/Observação -->
+            <TextBlock Text="Justificativa / Atividade:" Margin="0,3,0,2" FontWeight="SemiBold" FontSize="11"/>
+            <TextBox Text="{Binding Justificativa, UpdateSourceTrigger=PropertyChanged}" Height="45" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,8"/>
+
+            <!-- Botão para Abrir Renomeador CIGAM -->
+            <Button Content="🔄 Renomear &amp; Atualizar CIGAM" 
+                    Command="{Binding AbrirRenomeadorCigamCommand}" 
+                    Height="32" Margin="0,5,0,10" 
+                    Background="#8E44AD" Foreground="White" FontWeight="Bold"/>
+
+            <!-- CAIXA DE HISTÓRICO RECENTE -->
+            <Expander Header="📜 Histórico de Apontamentos Recentes" IsExpanded="True" Margin="0,5,0,0" FontWeight="SemiBold" Foreground="#003366">
+                <Border BorderBrush="#DDD" BorderThickness="1" CornerRadius="3" Margin="0,5,0,0" Padding="3">
+                    <ListBox ItemsSource="{Binding HistoricoRecente}" MaxHeight="180" Background="Transparent" BorderThickness="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#EEE" BorderThickness="0,0,0,1" Padding="4">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding NomeDocumento}" FontWeight="Bold" FontSize="11" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TempoFormatadoItem}" FontWeight="Bold" Foreground="#27AE60" FontSize="11"/>
+
+                                        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,2,0,0">
+                                            <TextBlock Text="{Binding CodigoProjetoPai, StringFormat='Pai: {0}'}" FontSize="9" Foreground="Gray" Margin="0,0,8,0"/>
+                                            <TextBlock Text="{Binding Etapa, StringFormat='Etapa: {0}'}" FontSize="9" Foreground="Gray"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
