@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<EnableComHosting>true</EnableComHosting>
+		<RegisterComObject>true</RegisterComObject>
+		<AssemblyName>TRONIX</AssemblyName>
+		<RootNamespace>TRONIX</RootNamespace>
+		<Version>1.0.0.0</Version>
+
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+
+		<!-- ✅ Ignora o aviso de conflito de versão das DLLs do SolidWorks -->
+		<NoWarn>MSB3277</NoWarn>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
+		<DelaySign>False</DelaySign>
+		<AssemblyTitle>TRONIXKey</AssemblyTitle>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Modules\Services\**" />
+		<Compile Remove="packages\NovaPasta\**" />
+		<EmbeddedResource Remove="Modules\Services\**" />
+		<EmbeddedResource Remove="packages\NovaPasta\**" />
+		<None Remove="Modules\Services\**" />
+		<None Remove="packages\NovaPasta\**" />
+		<Page Remove="Modules\Services\**" />
+		<Page Remove="packages\NovaPasta\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="EstanteWpfControl.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Quero criar um modulo onde consigo mediar quanto....pdf" />
+		<None Remove="RegistrarAddIn.bat" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Text.Json" Version="10.0.12" />
+		<PackageReference Include="Xarial.XCad.SolidWorks" Version="0.8.3" />
+	</ItemGroup>
+
+</Project>

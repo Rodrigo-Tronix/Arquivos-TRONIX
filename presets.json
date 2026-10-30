@@ -1,0 +1,56 @@
+﻿[
+  {
+    "NomePreset": "1.1 Protótipo - Peça",
+    "Categoria": "Protótipo",
+    "TipoDoc": "Part",
+    "TemplatePath": "C:\\TRONIX\\Templates\\Prototipo_Peca.drwdot",
+    "Vistas": [ "Front", "Top", "Right", "Isometric" ],
+    "CotagemAutomatica": true,
+    "InserirTabela": true
+  },
+  {
+    "NomePreset": "1.2 Protótipo - Montagem",
+    "Categoria": "Protótipo",
+    "TipoDoc": "Assembly",
+    "TemplatePath": "C:\\TRONIX\\Templates\\Prototipo_Montagem.drwdot",
+    "Vistas": [ "Front", "Top", "Isometric" ],
+    "CotagemAutomatica": false,
+    "InserirTabela": true
+  },
+  {
+    "NomePreset": "2.1 Definitivo - Peça",
+    "Categoria": "Definitivo",
+    "TipoDoc": "Part",
+    "TemplatePath": "C:\\TRONIX\\Templates\\Definitivo_Peca.drwdot",
+    "Vistas": [ "Front", "Top", "Right", "Isometric" ],
+    "CotagemAutomatica": true,
+    "InserirTabela": true
+  },
+  {
+    "NomePreset": "2.2 Definitivo - Montagem",
+    "Categoria": "Definitivo",
+    "TipoDoc": "Assembly",
+    "TemplatePath": "C:\\TRONIX\\Templates\\Definitivo_Montagem.drwdot",
+    "Vistas": [ "Front", "Top", "Isometric" ],
+    "CotagemAutomatica": false,
+    "InserirTabela": true
+  },
+  {
+    "NomePreset": "3.1 Retrabalho - Peça",
+    "Categoria": "Retrabalho",
+    "TipoDoc": "Part",
+    "TemplatePath": "C:\\TRONIX\\Templates\\Retrabalho_Peca.drwdot",
+    "Vistas": [ "Front", "Top", "Right" ],
+    "CotagemAutomatica": true,
+    "InserirTabela": false
+  },
+  {
+    "NomePreset": "3.2 Retrabalho - Montagem",
+    "Categoria": "Retrabalho",
+    "TipoDoc": "Assembly",
+    "TemplatePath": "C:\\TRONIX\\Templates\\Retrabalho_Montagem.drwdot",
+    "Vistas": [ "Front", "Isometric" ],
+    "CotagemAutomatica": false,
+    "InserirTabela": true
+  }
+]
